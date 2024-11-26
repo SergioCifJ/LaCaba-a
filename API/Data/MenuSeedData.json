@@ -1,0 +1,62 @@
+[
+    {
+      "id": 1,
+      "nombre": "Asado de Tira",
+      "descripcion": "Costillas de carne de res cocidas lentamente hasta que estén tiernas y jugosas, sazonadas con especias y acompañadas con chimichurri.",
+      "Precio": 25.00
+    },
+    {
+        "id": 2,
+        "nombre": "Provoleta",
+        "descripcion": "Queso provolone derretido con orégano y un toque de aceite de oliva, servido con pan crujiente.",
+        "Precio": 12.00
+      },
+      {
+        "id": 3,
+        "nombre": "Empanadas de Carne",
+        "descripcion": "Empanadas rellenas de carne picada, cebolla, huevo duro y aceitunas, horneadas hasta que estén doradas.",
+        "Precio": 10.00
+      },
+      {
+        "id": 4,
+        "nombre": "Choripán",
+        "descripcion": "Chorizo a la parrilla servido en pan, con salsa criolla y chimichurri.",
+        "Precio": 8.00
+      },
+      {
+        "id": 5,
+        "nombre": "Ensalada Mixta",
+        "descripcion": "Ensalada fresca con lechuga, tomate, cebolla, zanahoria y huevo duro, aderezada con vinagreta.",
+        "Precio": 7.00
+      },
+      {
+        "id": 6,
+        "nombre": "Matambre a la Parrilla",
+        "descripcion": "Corte de carne de res cocido a la parrilla con un adobo especial, acompañado de patatas al plomo.",
+        "Precio": 22.00
+      },
+      {
+        "id": 7,
+        "nombre": "Costillas de Cerdo",
+        "descripcion": "Costillas de cerdo marinadas en una mezcla de especias y cocidas a la parrilla, servidas con salsa barbacoa",
+        "Precio": 24.00
+      },
+      {
+        "id": 8,
+        "nombre": "Pollo al Disco",
+        "descripcion": "Pollo cocido en un disco de arado con vegetales y especias, servido con arroz y patatas.",
+        "Precio": 18.00
+      },
+      {
+        "id": 9,
+        "nombre": "Vacío a la Parrilla",
+        "descripcion": "Corte de carne de res, cocido a la parrilla con una mezcla de especias, acompañado con ensalada de patatas.",
+        "Precio": 20.00
+      },
+      {
+        "id": 10,
+        "nombre": "Revuelto Gramajo",
+        "descripcion": "Revuelto de huevo con patatas fritas, jamón y cebolla, servido con un toque de queso rallado.",
+        "Precio": 15.00
+      }
+  ]
