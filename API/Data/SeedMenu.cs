@@ -1,5 +1,3 @@
-using System.Security.Cryptography;
-using System.Text;
 using System.Text.Json;
 using API.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -14,19 +12,22 @@ namespace API.Data
 
             var menuData = await File.ReadAllTextAsync("Data/MenuSeedData.json");
 
-            var options = new JsonSerializerOptions{PropertyNameCaseInsensitive = true};
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
             var menus = JsonSerializer.Deserialize<List<Menu>>(menuData);
+            if (menus == null || !menus.Any())
+            {
+                throw new Exception("No se pudo deserializar el archivo JSON o no hay datos.");
+            }
 
             foreach (var menu in menus)
             {
-                using var hmac = new HMACSHA512();
-
+                Console.WriteLine($"Cargando menú: {menu.Nombre}");
                 menu.Nombre = menu.Nombre.ToLower();
                 menu.Descripcion = menu.Descripcion.ToLower();
-
                 context.Menus.Add(menu);
             }
+
 
             await context.SaveChangesAsync();
         }
