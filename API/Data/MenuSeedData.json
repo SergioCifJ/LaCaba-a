@@ -10,19 +10,19 @@
         "nombre": "Provoleta",
         "descripcion": "Queso provolone derretido con orégano y un toque de aceite de oliva, servido con pan crujiente.",
         "Precio": 12.00
-      },
-      {
+    },
+    {
         "id": 3,
         "nombre": "Empanadas de Carne",
         "descripcion": "Empanadas rellenas de carne picada, cebolla, huevo duro y aceitunas, horneadas hasta que estén doradas.",
         "Precio": 10.00
-      },
-      {
+    },
+    {
         "id": 4,
         "nombre": "Choripán",
         "descripcion": "Chorizo a la parrilla servido en pan, con salsa criolla y chimichurri.",
         "Precio": 8.00
-      },
+    },
       {
         "id": 5,
         "nombre": "Ensalada Mixta",

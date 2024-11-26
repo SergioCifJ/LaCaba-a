@@ -14,9 +14,13 @@ namespace API.Data
 
             var userData = await File.ReadAllTextAsync("Data/UserSeedData.json");
 
-            var options = new JsonSerializerOptions{PropertyNameCaseInsensitive = true};
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-            var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
+            var users = JsonSerializer.Deserialize<List<AppUser>>(userData, options);
+
+            if (users == null) throw new InvalidOperationException("No se pudieron deserializar los datos de los usuarios.");
+
+            string defaultPassword = "password";
 
             foreach (var user in users)
             {
@@ -24,8 +28,11 @@ namespace API.Data
 
                 user.Nombre = user.Nombre.ToLower();
                 user.Correo = user.Correo.ToLower();
-                user.ContraseñaHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("password"));
+
+                user.ContraseñaHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(defaultPassword));
                 user.ContraseñaSalt = hmac.Key;
+
+                user.Contraseña = null;
 
                 context.Usuarios.Add(user);
             }
