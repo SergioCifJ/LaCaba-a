@@ -19,7 +19,6 @@ img {
 .container {
     max-width: 1000px;
     margin: 0 auto;
-
 }
 
 .header {
@@ -27,7 +26,7 @@ img {
         rgba(0,0,0,0.4),
         rgba(0,0,0,0.4)
     ),
-    url(images/bg-3.jpg);
+    url(../images/bg-3.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
