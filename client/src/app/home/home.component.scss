@@ -202,19 +202,6 @@ h3 {
     background-color: #C9a538;
 }
 
-.bg {
-    background: linear-gradient(
-        rgba(0,0,0,0.4),
-        rgba(0,0,0,0.4)
-    ),
-    url(../images/bg-2.jpg); 
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 500px;
-    margin-top: -50px;
-}
-
 .food {
     padding: 100px 0;
     text-align: center;
@@ -306,6 +293,11 @@ p.precio {
 
 .link a:hover {
     color: #C9a538;
+}
+
+.social-media img {
+    max-height: 50px;
+    max-width: 50px;
 }
 
 @media (max-width:991px) {
