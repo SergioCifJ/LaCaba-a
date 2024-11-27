@@ -70,6 +70,7 @@ img {
     color: #FFFFFF;
     display: block;
     font-weight: 600;
+    transition: color 0.3s ease;
 }
 
 .menu .navbar ul li a:hover{
@@ -164,6 +165,8 @@ h3 {
     margin-top: 10px;
     color: #C9a538;
     text-transform: uppercase;
+    transition: color 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
 .btn-1:hover {
@@ -298,6 +301,7 @@ p.precio {
     font-size: 18px;
     text-transform: uppercase;
     color: #FFFFFF;
+    transition: color 0.3s ease;
 }
 
 .link a:hover {
