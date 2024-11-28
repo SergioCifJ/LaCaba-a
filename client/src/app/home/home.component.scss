@@ -18,7 +18,6 @@ img {
 .container {
     max-width: 1000px;
     margin: 0 auto;
-
 }
 
 .header {
@@ -298,6 +297,14 @@ p.precio {
 .social-media img {
     max-height: 50px;
     max-width: 50px;
+    transform: scale(1, 1);
+    transition-duration: 200ms;
+}
+
+.social-media img:hover {
+    transform: scale(1.2, 1.2);
+    transition-duration: 200ms;
+    transition-timing-function: ease-out;
 }
 
 @media (max-width:991px) {
