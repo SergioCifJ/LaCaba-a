@@ -1,33 +1,50 @@
-using API.Data;
 using API.Entities;
+using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UsersController
+    public class UsersController : ControllerBase
     {
-        private readonly DataContext _context;
-        public UsersController(DataContext context)
+        private readonly IUserRepository _userRepository;
+
+        public UsersController(IUserRepository userRepository)
         {
-            _context = context;
+            _userRepository = userRepository;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<AppUser>> GetUsers()
+        public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
-            var users = _context.Usuarios.ToList();
-
-            return users;
+            var users = await _userRepository.GetUsersAsync();
+            return Ok(users);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<AppUser> GetUserById(int id)
+        public async Task<ActionResult<AppUser>> GetUserById(int id)
         {
-            var user = _context.Usuarios.Find(id);
+            var user = await _userRepository.GetUserByIdAsync(id);
 
-            return user;
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
+
+        [HttpPost("register")]
+        public async Task<ActionResult<AppUser>> AddUser(AppUser user)
+        {
+            if (user == null)
+            {
+                return BadRequest("Datos invalidos");
+            }
+
+            var newUser = await _userRepository.AddUserAsync(user);
+            return CreatedAtAction(nameof(GetUserById), new { id = newUser.Id }, newUser);
         }
     }
 }

@@ -9,6 +9,8 @@ import { ReservasComponent } from './reservas/reservas.component';
 import { NavComponent } from './nav/nav.component';
 import { RegisterComponent } from './register/register.component';
 import { SesionComponent } from './sesion/sesion.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,11 +20,13 @@ import { SesionComponent } from './sesion/sesion.component';
     ReservasComponent,
     NavComponent,
     RegisterComponent,
-    SesionComponent
+    SesionComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
