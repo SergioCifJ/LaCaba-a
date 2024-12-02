@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Usuario } from '../_models/Usuario';
 import { RegisterService } from '../_services/register.service';
 
 @Component({
@@ -8,29 +9,35 @@ import { RegisterService } from '../_services/register.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
+
 export class RegisterComponent {
-  user = {
+  user: Usuario = {
+    id: 0,
     nombre: '',
     correo: '',
     contrasena: '',
     confirmarContrasena: ''
   };
 
+  errorMessage: string = '';
+
   constructor(private registerService: RegisterService, private router: Router) {}
 
   onSubmit() {
     if (this.user.contrasena !== this.user.confirmarContrasena) {
       alert('Las contraseñas no coinciden.');
+      this.user.contrasena == null;
+      this.user.confirmarContrasena == null;
       return;
     }
 
     this.registerService.registerUser(this.user).subscribe(
       (response) => {
         alert('Usuario registrado con éxito');
-        this.router.navigate(['/login']);
       },
       (error) => {
-        alert('Error al registrar usuario: ' + error.error);
+        this.errorMessage = error; 
+        console.error('Error al registrar usuario:', error);
       }
     );
   }

@@ -12,19 +12,19 @@
             <h1>Regístrate</h1>
             <form (ngSubmit)="onSubmit()">
                 <p class="nombre-input">Nombre: </p>
-                <input type="text" class="input-input" 
-                    [(ngModel)]="user.nombre" name="nombre" required autocomplete="off">
+                <input type="text" class="input-input" [(ngModel)]="user.nombre" name="nombre" required autocomplete="off">
                 <p class="nombre-input">Correo Electrónico: </p>
-                <input type="email" class="input-input" 
-                    [(ngModel)]="user.correo" name="correo" required autocomplete="off">
+                <input type="email" class="input-input" [(ngModel)]="user.correo" name="correo" required autocomplete="off">
                 <p class="nombre-input">Contraseña: </p>
-                <input type="password" class="input-input" 
-                    [(ngModel)]="user.contrasena" name="contrasena" required>
+                <input type="password" class="input-input" [(ngModel)]="user.contrasena" name="contrasena" required>
                 <p class="nombre-input">Confirmar contraseña: </p>
-                <input type="password" class="input-input" 
-                    [(ngModel)]="user.confirmarContrasena" name="confirmarContrasena" required><br>
+                <input type="password" class="input-input" [(ngModel)]="user.confirmarContrasena" name="confirmarContrasena" required><br>
                 <button type="submit">Enviar</button>
             </form>
+
+            <div *ngIf="errorMessage" class="error-message">
+                <p style="color: red;">{{ errorMessage }}</p>
+            </div>
         </div>
     </section>
 
@@ -42,5 +42,4 @@
             </div>
         </div>
     </footer>
-
 </body>
