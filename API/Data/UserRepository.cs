@@ -23,6 +23,18 @@ namespace API.Data
             return await _context.Usuarios.FindAsync(id);
         }
 
+        public async Task<AppUser> GetUserByNombreAsync(string nombre)
+        {
+            return await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.Nombre == nombre);
+        }
+
+        public async Task<AppUser> GetUserByCorreoAsync(string correo)
+        {
+            return await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.Correo == correo);
+        }
+
         public async Task<AppUser> AddUserAsync(AppUser user)
         {
             _context.Usuarios.Add(user);

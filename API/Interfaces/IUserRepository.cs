@@ -6,6 +6,8 @@ namespace API.Interfaces
     {
         Task<IEnumerable<AppUser>> GetUsersAsync();
         Task<AppUser> GetUserByIdAsync(int id);
+        Task<AppUser> GetUserByNombreAsync(string nombre);
+        Task<AppUser> GetUserByCorreoAsync(string correo);
         Task<AppUser> AddUserAsync(AppUser user);
     }
 }

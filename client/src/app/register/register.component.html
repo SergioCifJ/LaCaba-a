@@ -1,45 +1,47 @@
 <body>
     <header class="header">
-        <div class="menu container">
-            <label for="menu">
-                <img src="../images/menu.png" class="menu-icono" alt="menu">
-            </label>
-        </div>
+      <div class="menu container">
+        <label for="menu">
+          <img src="../images/menu.png" class="menu-icono" alt="menu">
+        </label>
+      </div>
     </header>
-
+  
     <section class="nosotros container">
-        <div class="nosotros-content">
-            <h1>Regístrate</h1>
-            <form (ngSubmit)="onSubmit()">
-                <p class="nombre-input">Nombre: </p>
-                <input type="text" class="input-input" [(ngModel)]="user.nombre" name="nombre" required autocomplete="off">
-                <p class="nombre-input">Correo Electrónico: </p>
-                <input type="email" class="input-input" [(ngModel)]="user.correo" name="correo" required autocomplete="off">
-                <p class="nombre-input">Contraseña: </p>
-                <input type="password" class="input-input" [(ngModel)]="user.contrasena" name="contrasena" required>
-                <p class="nombre-input">Confirmar contraseña: </p>
-                <input type="password" class="input-input" [(ngModel)]="confirmarContrasena" name="confirmarContrasena" required><br>
-                <button type="submit">Enviar</button>
-            </form>
-
-            <div *ngIf="errorMessage" class="error-message">
-                <p style="color: red;">{{ errorMessage }}</p>
-            </div>
+      <div class="nosotros-content">
+        <h1>Regístrate</h1>
+        <form (ngSubmit)="onSubmit()">
+          <p class="nombre-input">Nombre: </p>
+          <input type="text" class="input-input" [(ngModel)]="user.nombre" name="nombre" required autocomplete="off">
+          <p class="nombre-input">Correo Electrónico: </p>
+          <input type="email" class="input-input" [(ngModel)]="user.correo" name="correo" required autocomplete="off">
+          <p class="nombre-input">Contraseña: </p>
+          <input type="password" class="input-input" [(ngModel)]="user.contrasena" name="contrasena" required>
+          <p class="nombre-input">Confirmar contraseña: </p>
+          <input type="password" class="input-input" [(ngModel)]="confirmarContrasena" name="confirmarContrasena" required><br>
+          <button type="submit">Enviar</button>
+        </form>
+  
+        <div *ngIf="errorMessage" class="error-message">
+          <p style="color: red;">{{ errorMessage }}</p>
         </div>
+        
+      </div>
     </section>
-
+  
     <footer class="footer">
-        <div class="footer-content container">
-            <div class="link">
-                <span class="logo"><img src="images/logoPNGHD.png"></span>
-            </div>
-            <div class="link">
-                <ul>
-                    <li><a href="https://instagram.com/" class="social-media"><img src="images/insta.png"></a></li>
-                    <li><a href="https://facebook.com/" class="social-media"><img src="images/facebook.png"></a></li>
-                    <li><a href="https://x.com/" class="social-media"><img src="images/twitter.png"></a></li>
-                </ul>
-            </div>
+      <div class="footer-content container">
+        <div class="link">
+          <span class="logo"><img src="images/logoPNGHD.png"></span>
         </div>
+        <div class="link">
+          <ul>
+            <li><a href="https://instagram.com/" class="social-media"><img src="images/insta.png"></a></li>
+            <li><a href="https://facebook.com/" class="social-media"><img src="images/facebook.png"></a></li>
+            <li><a href="https://x.com/" class="social-media"><img src="images/twitter.png"></a></li>
+          </ul>
+        </div>
+      </div>
     </footer>
-</body>
+  </body>
+  

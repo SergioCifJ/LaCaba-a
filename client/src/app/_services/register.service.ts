@@ -14,7 +14,12 @@ export class RegisterService {
 
   registerUser(user: any): Observable<any> {
     return this.http.post(this.apiUrl, user).pipe(
-      catchError(this.handleError)
+      catchError((error) => {
+        if (error.status === 400) {
+          return throwError(error.error.message);
+        }
+        return this.handleError(error);
+      })
     );
   }
 
