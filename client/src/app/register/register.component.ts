@@ -16,18 +16,19 @@ export class RegisterComponent {
     nombre: '',
     correo: '',
     contrasena: '',
-    confirmarContrasena: ''
   };
+
+  confirmarContrasena: string = '';
 
   errorMessage: string = '';
 
-  constructor(private registerService: RegisterService, private router: Router) {}
+  constructor(private registerService: RegisterService, private router: Router) { }
 
   onSubmit() {
-    if (this.user.contrasena !== this.user.confirmarContrasena) {
+    if (this.user.contrasena !== this.confirmarContrasena) {
       alert('Las contraseñas no coinciden.');
       this.user.contrasena == null;
-      this.user.confirmarContrasena == null;
+      this.confirmarContrasena == null;
       return;
     }
 
@@ -36,7 +37,7 @@ export class RegisterComponent {
         alert('Usuario registrado con éxito');
       },
       (error) => {
-        this.errorMessage = error; 
+        this.errorMessage = error;
         console.error('Error al registrar usuario:', error);
       }
     );
