@@ -23,6 +23,8 @@ export class RegisterService {
     );
   }
 
+  
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error('Error del cliente:', error.error.message);

@@ -40,13 +40,6 @@ namespace API.Controllers
         {
             var userByNombre = await _userRepository.GetUserByNombreAsync(user.Nombre);
             var userByCorreo = await _userRepository.GetUserByCorreoAsync(user.Correo);
-            var newUser = await _userRepository.AddUserAsync(user);
-
-
-            if (user == null)
-            {
-                return BadRequest("Datos invalidos");
-            }
 
             if (userByNombre != null)
             {
@@ -58,8 +51,8 @@ namespace API.Controllers
                 return BadRequest("El correo electrónico ya está en uso.");
             }
 
+            var newUser = await _userRepository.AddUserAsync(user);
             return CreatedAtAction(nameof(GetUserById), new { id = newUser.Id }, newUser);
         }
-
     }
 }

@@ -12,8 +12,8 @@ import { RegisterService } from '../_services/register.service';
 export class RegisterComponent {
   user: Usuario = {
     id: 0,
-    nombre: '',
-    correo: '',
+    nombre: null,
+    correo: null,
     contrasena: '',
   };
 
@@ -24,6 +24,11 @@ export class RegisterComponent {
   constructor(private registerService: RegisterService, private router: Router) { }
 
   onSubmit() {
+    if (!this.user.nombre || !this.user.correo || !this.user.contrasena || !this.confirmarContrasena) {
+      alert('Por favor, completa todos los campos.');
+      return;
+    }
+
     if (this.user.contrasena !== this.confirmarContrasena) {
       alert('Las contraseñas no coinciden.');
       this.user.contrasena = '';
@@ -34,8 +39,8 @@ export class RegisterComponent {
     this.registerService.registerUser(this.user).subscribe(
       (response) => {
         alert('Usuario registrado con éxito');
-        this.user.nombre = '';
-        this.user.correo = '';
+        this.user.nombre = null;  
+        this.user.correo = null;
         this.user.contrasena = '';
         this.confirmarContrasena = '';
       },
@@ -45,7 +50,7 @@ export class RegisterComponent {
         } else {
           this.errorMessage = 'Error al registrar el usuario. Intenta nuevamente más tarde.';
         }
-        console.error('Error al registrar usuario:', error);
+        alert('Error al registrar usuario:' + error);
       }
     );
   }
