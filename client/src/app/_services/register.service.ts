@@ -16,14 +16,12 @@ export class RegisterService {
     return this.http.post(this.apiUrl, user).pipe(
       catchError((error) => {
         if (error.status === 400) {
-          return throwError(error.error.message);
+          return throwError(error.error);
         }
         return this.handleError(error);
       })
     );
   }
-
-  
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

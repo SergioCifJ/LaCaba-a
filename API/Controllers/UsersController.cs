@@ -54,5 +54,6 @@ namespace API.Controllers
             var newUser = await _userRepository.AddUserAsync(user);
             return CreatedAtAction(nameof(GetUserById), new { id = newUser.Id }, newUser);
         }
+
     }
 }

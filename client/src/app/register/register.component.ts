@@ -25,12 +25,12 @@ export class RegisterComponent {
 
   onSubmit() {
     if (!this.user.nombre || !this.user.correo || !this.user.contrasena || !this.confirmarContrasena) {
-      alert('Por favor, completa todos los campos.');
+      this.errorMessage = 'Por favor, completa todos los campos.';
       return;
     }
 
     if (this.user.contrasena !== this.confirmarContrasena) {
-      alert('Las contraseñas no coinciden.');
+      this.errorMessage = 'Las contraseñas no coinciden.';
       this.user.contrasena = '';
       this.confirmarContrasena = '';
       return;
@@ -38,6 +38,7 @@ export class RegisterComponent {
 
     this.registerService.registerUser(this.user).subscribe(
       (response) => {
+        this.errorMessage = '';
         alert('Usuario registrado con éxito');
         this.user.nombre = null;  
         this.user.correo = null;
@@ -50,7 +51,6 @@ export class RegisterComponent {
         } else {
           this.errorMessage = 'Error al registrar el usuario. Intenta nuevamente más tarde.';
         }
-        alert('Error al registrar usuario:' + error);
       }
     );
   }
