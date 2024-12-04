@@ -10,23 +10,40 @@
   <section class="nosotros container">
     <div class="nosotros-content">
       <h1>Regístrate</h1>
-      <form (ngSubmit)="onSubmit()">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <p class="nombre-input">Nombre: </p>
-        <input type="text" class="input-input" [(ngModel)]="user.nombre" name="nombre" required autocomplete="off">
+        <input type="text" class="input-input" formControlName="nombre" required autocomplete="off">
+        <div *ngIf="f['nombre'].touched && f['nombre'].invalid" class="error-message">
+          <p style="color: red;">El nombre es obligatorio.</p>
+        </div>
+
         <p class="nombre-input">Correo Electrónico: </p>
-        <input type="email" class="input-input" [(ngModel)]="user.correo" name="correo" required autocomplete="off">
+        <input type="email" class="input-input" formControlName="correo" required autocomplete="off">
+        <div *ngIf="f['correo'].touched && f['correo'].invalid" class="error-message">
+          <p style="color: red;" *ngIf="f['correo'].errors?.['required']">El correo es obligatorio.</p>
+          <p style="color: red;" *ngIf="f['correo'].errors?.['email']">Por favor ingresa un correo válido.</p>
+        </div>
+
         <p class="nombre-input">Contraseña: </p>
-        <input type="password" class="input-input" [(ngModel)]="user.contrasena" name="contrasena" required>
+        <input type="password" class="input-input" formControlName="contrasena" required>
+        <div *ngIf="f['contrasena'].touched && f['contrasena'].invalid" class="error-message">
+          <p style="color: red;" *ngIf="f['contrasena'].errors?.['required']">La contraseña es obligatoria.</p>
+          <p style="color: red;" *ngIf="f['contrasena'].errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</p>
+        </div>
+
         <p class="nombre-input">Confirmar contraseña: </p>
-        <input type="password" class="input-input" [(ngModel)]="confirmarContrasena" name="confirmarContrasena"
-          required><br>
+        <input type="password" class="input-input" formControlName="confirmarContrasena" required>
+        <div *ngIf="f['confirmarContrasena'].touched && f['confirmarContrasena'].invalid" class="error-message">
+          <p style="color: red;" *ngIf="f['confirmarContrasena'].errors?.['required']">La confirmación de la contraseña es obligatoria.</p>
+          <p style="color: red;" *ngIf="f['confirmarContrasena'].errors?.['mismatch']">Las contraseñas no coinciden.</p>
+        </div><br>
+
         <button type="submit">Enviar</button>
       </form>
 
       <div *ngIf="errorMessage" class="error-message">
         <p style="color: red;">{{ errorMessage }}</p>
       </div>
-
     </div>
   </section>
 

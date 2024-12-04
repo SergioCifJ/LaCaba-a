@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Usuario } from '../_models/Usuario';
 import { RegisterService } from '../_services/register.service';
 
 @Component({
@@ -9,41 +9,46 @@ import { RegisterService } from '../_services/register.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent {
-  user: Usuario = {
-    id: 0,
-    nombre: null,
-    correo: null,
-    contrasena: '',
-  };
-
-  confirmarContrasena: string = '';
-
+export class RegisterComponent implements OnInit {
+  registerForm!: FormGroup;
   errorMessage: string = '';
 
-  constructor(private registerService: RegisterService, private router: Router) { }
+  constructor(
+    private fb: FormBuilder,
+    private registerService: RegisterService,
+    private router: Router
+  ) {}
 
-  onSubmit() {
-    if (!this.user.nombre || !this.user.correo || !this.user.contrasena || !this.confirmarContrasena) {
-      this.errorMessage = 'Por favor, completa todos los campos.';
+  ngOnInit(): void {
+    // Crear el formulario reactivo
+    this.registerForm = this.fb.group({
+      nombre: ['', Validators.required],
+      correo: ['', [Validators.required, Validators.email]],
+      contrasena: ['', [Validators.required, Validators.minLength(6)]],
+      confirmarContrasena: ['', [Validators.required]]
+    }, {
+      validator: this.passwordMatchValidator
+    });
+  }
+
+  // Validador personalizado para confirmar que las contraseñas coinciden
+  passwordMatchValidator(group: FormGroup) {
+    const password = group.get('contrasena')?.value;
+    const confirmarContrasena = group.get('confirmarContrasena')?.value;
+    return password === confirmarContrasena ? null : { mismatch: true };
+  }
+
+  onSubmit(): void {
+    if (this.registerForm.invalid) {
+      this.errorMessage = 'Por favor, completa todos los campos correctamente.';
       return;
     }
 
-    if (this.user.contrasena !== this.confirmarContrasena) {
-      this.errorMessage = 'Las contraseñas no coinciden.';
-      this.user.contrasena = '';
-      this.confirmarContrasena = '';
-      return;
-    }
-
-    this.registerService.registerUser(this.user).subscribe(
+    this.registerService.registerUser(this.registerForm.value).subscribe(
       (response) => {
         this.errorMessage = '';
         alert('Usuario registrado con éxito');
-        this.user.nombre = null;  
-        this.user.correo = null;
-        this.user.contrasena = '';
-        this.confirmarContrasena = '';
+        this.registerForm.reset();
       },
       (error) => {
         if (error === 'El nombre de usuario ya está en uso.' || error === 'El correo electrónico ya está en uso.') {
@@ -53,5 +58,10 @@ export class RegisterComponent {
         }
       }
     );
+  }
+
+  // Getter para acceder a los campos del formulario
+  get f() {
+    return this.registerForm.controls;
   }
 }
