@@ -9,13 +9,26 @@
     <section class="nosotros container">
         <div class="nosotros-content">
             <h1>Inicia sesión</h1>
-            <form>
-                <p class="nombre-input">Correo Electronico: </p>
-                <input type="text"class="input-input">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <p class="nombre-input">Correo Electrónico: </p>
+                <input type="email" class="input-input" formControlName="correo" required autocomplete="off">
+                <div *ngIf="f['correo'].touched && f['correo'].invalid" class="error-message">
+                    <p style="color: red;" *ngIf="f['correo'].errors?.['required']">El correo es obligatorio.</p>
+                    <p style="color: red;" *ngIf="f['correo'].errors?.['email']">Por favor ingresa un correo válido.</p>
+                </div>
+
                 <p class="nombre-input">Contraseña: </p>
-                <input type="password"class="input-input"><br>
-                <button type="submit">Enviar</button>
+                <input type="password" class="input-input" formControlName="contrasena" required>
+                <div *ngIf="f['contrasena'].touched && f['contrasena'].invalid" class="error-message">
+                    <p style="color: red;" *ngIf="f['contrasena'].errors?.['required']">La contraseña es obligatoria.</p>
+                </div><br>
+
+                <button type="submit">Iniciar sesión</button>
             </form>
+
+            <div *ngIf="errorMessage" class="error-message">
+                <p style="color: red;">{{ errorMessage }}</p>
+            </div>
         </div>
     </section>
 
@@ -33,5 +46,4 @@
             </div>
         </div>
     </footer>
-
 </body>
