@@ -53,22 +53,12 @@ namespace API.Controllers
                 return BadRequest("El correo electrónico ya está en uso.");
             }
 
-            Console.WriteLine($"Contraseña antes de hashing: {user.Contraseña}");
+            using var hmac = new HMACSHA512();
+            user.ContrasenaHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(user.Contrasena));
+            user.ContrasenaSalt = hmac.Key;
+            user.Contrasena = null;
 
             var newUser = await _userRepository.AddUserAsync(user);
-
-            try
-            {
-                using var hmac = new HMACSHA512();
-                newUser.ContraseñaHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(newUser.Contraseña));
-                newUser.ContraseñaSalt = hmac.Key;
-                // newUser.Contraseña = null;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-
             return CreatedAtAction(nameof(GetUserById), new { id = newUser.Id }, newUser);
         }
 

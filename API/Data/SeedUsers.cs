@@ -29,10 +29,10 @@ namespace API.Data
                 user.Nombre = user.Nombre.ToLower();
                 user.Correo = user.Correo.ToLower();
 
-                user.ContraseñaHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(defaultPassword));
-                user.ContraseñaSalt = hmac.Key;
+                user.ContrasenaHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(defaultPassword));
+                user.ContrasenaSalt = hmac.Key;
 
-                user.Contraseña = null;
+                user.Contrasena = null;
 
                 context.Usuarios.Add(user);
             }
