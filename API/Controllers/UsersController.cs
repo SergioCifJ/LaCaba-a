@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using System.Text;
 using API.Entities;
 using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -51,7 +53,22 @@ namespace API.Controllers
                 return BadRequest("El correo electrónico ya está en uso.");
             }
 
+            Console.WriteLine($"Contraseña antes de hashing: {user.Contraseña}");
+
             var newUser = await _userRepository.AddUserAsync(user);
+
+            try
+            {
+                using var hmac = new HMACSHA512();
+                newUser.ContraseñaHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(newUser.Contraseña));
+                newUser.ContraseñaSalt = hmac.Key;
+                // newUser.Contraseña = null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+
             return CreatedAtAction(nameof(GetUserById), new { id = newUser.Id }, newUser);
         }
 

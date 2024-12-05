@@ -13,6 +13,7 @@ export class RegisterService {
   constructor(private http: HttpClient) { }
 
   registerUser(user: any): Observable<any> {
+    console.log(user);
     return this.http.post(this.apiUrl, user).pipe(
       catchError((error) => {
         if (error.status === 400) {

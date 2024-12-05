@@ -31,7 +31,6 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  // Validador personalizado para confirmar que las contraseñas coinciden
   passwordMatchValidator(group: FormGroup) {
     const password = group.get('contrasena')?.value;
     const confirmarContrasena = group.get('confirmarContrasena')?.value;
@@ -44,6 +43,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
+    console.log(this.registerForm.value);
     this.registerService.registerUser(this.registerForm.value).subscribe(
       (response) => {
         this.errorMessage = '';
@@ -60,7 +60,6 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  // Getter para acceder a los campos del formulario
   get f() {
     return this.registerForm.controls;
   }

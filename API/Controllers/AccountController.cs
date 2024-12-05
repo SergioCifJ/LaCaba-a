@@ -1,84 +1,78 @@
-using API.Entities;
-using API.Interfaces;
-using API.DTOs;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+// using API.Entities;
+// using API.Interfaces;
+// using API.DTOs;
+// using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers
-{
-    [ApiController]
-    [Route("account")]
-    public class AccountController : ControllerBase
-    {
-        private readonly IUserRepository _userRepository;
-        private readonly ITokenService _tokenService;
+// namespace API.Controllers
+// {
+//     [ApiController]
+//     [Route("account")]
+//     public class AccountController : ControllerBase
+//     {
+//         private readonly IUserRepository _userRepository;
+//         private readonly ITokenService _tokenService;
 
-        public AccountController(IUserRepository userRepository, ITokenService tokenService)
-        {
-            _userRepository = userRepository;
-            _tokenService = tokenService;
-        }
+//         public AccountController(IUserRepository userRepository, ITokenService tokenService)
+//         {
+//             _userRepository = userRepository;
+//             _tokenService = tokenService;
+//         }
 
-        // Registro de usuario
-        [HttpPost("register")]
-        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
-        {
-            // Verificar si el usuario ya existe
-            if (await UserExist(registerDto.Correo)) return BadRequest("Correo ya está registrado.");
+//         // Registro de usuario
+//         [HttpPost("register")]
+//         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+//         {
+//             // Verificar si el usuario ya existe
+//             if (await UserExist(registerDto.Correo)) return BadRequest("Correo ya está registrado.");
 
-            // Crear el usuario a partir del DTO
-            var user = new AppUser
-            {
-                Nombre = registerDto.Nombre,
-                Correo = registerDto.Correo.ToLower()
-            };
+//             // Crear el usuario a partir del DTO
+//             var user = new AppUser
+//             {
+//                 Nombre = registerDto.Nombre,
+//                 Correo = registerDto.Correo.ToLower()
+//             };
 
-            // Guardar el nuevo usuario en la base de datos
-            var createdUser = await _userRepository.RegisterUserAsync(user);
+//             // Crear el token para el nuevo usuario
+//             var token = await _tokenService.CreateToken(user);
 
-            if (createdUser == null) return BadRequest("No se pudo registrar el usuario.");
+//             return new UserDto
+//             {
+//                 Correo = user.Correo,
+//                 Token = token,
+//                 Nombre = user.Nombre,
+//             };
+//         }
 
-            // Crear el token para el nuevo usuario
-            var token = await _tokenService.CreateToken(user);
+//         // Iniciar sesión
+//         [HttpPost("login")]
+//         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
+//         {
+//             // Obtener el usuario por correo
+//             var user = await _userRepository.GetUserByCorreoAsync(loginDto.Correo);
 
-            return new UserDto
-            {
-                Correo = user.Correo,
-                Token = token,
-                Nombre = user.Nombre,
-            };
-        }
+//             if (user == null) return Unauthorized("Correo incorrecto.");
 
-        // Iniciar sesión
-        [HttpPost("login")]
-        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
-        {
-            // Obtener el usuario por correo
-            var user = await _userRepository.GetUserByCorreoAsync(loginDto.Correo);
+//             // Verificar si la contraseña es correcta
+//             if (user.Contraseña != loginDto.Contrasena)
+//             {
+//                 return Unauthorized("Contraseña incorrecta.");
+//             }
 
-            if (user == null) return Unauthorized("Correo incorrecto.");
+//             // Crear el token para el usuario
+//             var token = await _tokenService.CreateToken(user);
 
-            // Verificar si la contraseña es correcta
-            if (user.Contraseña != loginDto.Contrasena)
-            {
-                return Unauthorized("Contraseña incorrecta.");
-            }
+//             return new UserDto
+//             {
+//                 Correo = user.Correo,
+//                 Token = token,
+//                 Nombre = user.Nombre,
+//             };
+//         }
 
-            // Crear el token para el usuario
-            var token = await _tokenService.CreateToken(user);
-
-            return new UserDto
-            {
-                Correo = user.Correo,
-                Token = token,
-                Nombre = user.Nombre,
-            };
-        }
-
-        // Método privado para verificar si un usuario existe
-        private async Task<bool> UserExist(string correo)
-        {
-            return await _userRepository.UserExist(correo.ToLower());
-        }
-    }
-}
+//         // Método privado para verificar si un usuario existe
+//         private async Task<bool> UserExist(string correo)
+//         {
+//             return await _userRepository.UserExist(correo.ToLower());
+//         }
+//     }
+// }
