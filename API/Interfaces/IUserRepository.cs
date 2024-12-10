@@ -9,5 +9,7 @@ namespace API.Interfaces
         Task<AppUser> GetUserByNombreAsync(string nombre);
         Task<AppUser> GetUserByCorreoAsync(string correo);
         Task<AppUser> AddUserAsync(AppUser user);
+        Task<bool> UserExist(string correo);
+
     }
 }

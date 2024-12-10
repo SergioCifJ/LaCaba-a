@@ -41,13 +41,12 @@ namespace API.Controllers
         public async Task<ActionResult<AppUser>> AddUser(AppUser user)
         {
             var userByNombre = await _userRepository.GetUserByNombreAsync(user.Nombre);
-            var userByCorreo = await _userRepository.GetUserByCorreoAsync(user.Correo);
-
             if (userByNombre != null)
             {
                 return BadRequest("El nombre de usuario ya está en uso.");
             }
 
+            var userByCorreo = await _userRepository.GetUserByCorreoAsync(user.Correo);
             if (userByCorreo != null)
             {
                 return BadRequest("El correo electrónico ya está en uso.");
@@ -61,6 +60,7 @@ namespace API.Controllers
             var newUser = await _userRepository.AddUserAsync(user);
             return CreatedAtAction(nameof(GetUserById), new { id = newUser.Id }, newUser);
         }
+
 
     }
 }

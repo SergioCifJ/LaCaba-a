@@ -5,7 +5,6 @@ import { AccountService } from '../_services/account.service';  // Asegúrate de
 
 @Component({
   selector: 'app-sesion',
-  standalone: false,
   templateUrl: './sesion.component.html',
   styleUrls: ['./sesion.component.scss']
 })
@@ -33,13 +32,12 @@ export class SesionComponent implements OnInit {
       return;
     }
 
-    // Llamada al servicio para iniciar sesión
     this.accountService.login(this.loginForm.value).subscribe(
-      (response) => {
+      () => {
         this.errorMessage = '';
-        this.router.navigate(['/home']);  // Redirige al usuario después de iniciar sesión
+        this.router.navigate(['/home']);
       },
-      (error) => {
+      () => {
         this.errorMessage = 'Credenciales incorrectas. Intenta nuevamente.';
       }
     );

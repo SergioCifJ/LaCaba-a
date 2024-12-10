@@ -8,7 +8,7 @@ import { NosotrosComponent } from './nosotros/nosotros.component';
 import { ReservasComponent } from './reservas/reservas.component';
 import { NavComponent } from './nav/nav.component';
 import { RegisterComponent } from './register/register.component';
-import { SesionComponent } from './sesion/sesion.component';
+// import { SesionComponent } from './sesion/sesion.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -20,7 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReservasComponent,
     NavComponent,
     RegisterComponent,
-    SesionComponent,
+    // SesionComponent,
   ],
   imports: [
     BrowserModule,

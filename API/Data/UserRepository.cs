@@ -41,5 +41,10 @@ namespace API.Data
             await _context.SaveChangesAsync();
             return user;
         }
+
+        public async Task<bool> UserExist(string correo)
+    {
+        return await _context.Usuarios.AnyAsync(u => u.Correo == correo);
+    }
     }
 }
