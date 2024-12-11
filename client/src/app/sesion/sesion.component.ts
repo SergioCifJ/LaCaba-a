@@ -5,8 +5,9 @@ import { AccountService } from '../_services/account.service';
 
 @Component({
   selector: 'app-sesion',
+  standalone: false,
   templateUrl: './sesion.component.html',
-  styleUrls: ['./sesion.component.scss'],
+  styleUrls: ['./sesion.component.scss']
 })
 export class SesionComponent implements OnInit {
   loginForm!: FormGroup;
@@ -20,8 +21,8 @@ export class SesionComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      correo: ['', [Validators.required, Validators.email]],
-      contrasena: ['', Validators.required],
+      nombreUsuario: ['', Validators.required],
+      contrasena: ['', Validators.required]
     });
   }
 

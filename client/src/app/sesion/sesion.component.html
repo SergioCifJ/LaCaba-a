@@ -10,18 +10,29 @@
         <div class="nosotros-content">
             <h1>Inicia sesión</h1>
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                <p class="nombre-input">Correo Electrónico: </p>
-                <input type="email" class="input-input" formControlName="correo" required autocomplete="off">
-                <div *ngIf="f['correo'].touched && f['correo'].invalid" class="error-message">
-                    <p style="color: red;" *ngIf="f['correo'].errors?.['required']">El correo es obligatorio.</p>
-                    <p style="color: red;" *ngIf="f['correo'].errors?.['email']">Por favor ingresa un correo válido.</p>
+                <p class="nombre-input">Nombre de Usuario: </p>
+                <input
+                    type="text"
+                    class="input-input"
+                    formControlName="nombreUsuario"
+                    required
+                    autocomplete="off"
+                />
+                <div *ngIf="f['nombreUsuario'].touched && f['nombreUsuario'].invalid" class="error-message">
+                    <p style="color: red;" *ngIf="f['nombreUsuario'].errors?.['required']">El nombre de usuario es obligatorio.</p>
                 </div>
 
                 <p class="nombre-input">Contraseña: </p>
-                <input type="password" class="input-input" formControlName="contrasena" required>
+                <input
+                    type="password"
+                    class="input-input"
+                    formControlName="contrasena"
+                    required
+                />
                 <div *ngIf="f['contrasena'].touched && f['contrasena'].invalid" class="error-message">
                     <p style="color: red;" *ngIf="f['contrasena'].errors?.['required']">La contraseña es obligatoria.</p>
-                </div><br>
+                </div>
+                <br />
 
                 <button type="submit">Iniciar sesión</button>
             </form>
@@ -35,13 +46,19 @@
     <footer class="footer">
         <div class="footer-content container">
             <div class="link">
-                <span class="logo"><img src="images/logoPNGHD.png"></span>
+                <span class="logo"><img src="images/logoPNGHD.png" /></span>
             </div>
             <div class="link">
                 <ul>
-                    <li><a href="https://instagram.com/" class="social-media"><img src="images/insta.png"></a></li>
-                    <li><a href="https://facebook.com/" class="social-media"><img src="images/facebook.png"></a></li>
-                    <li><a href="https://x.com/" class="social-media"><img src="images/twitter.png"></a></li>
+                    <li>
+                        <a href="https://instagram.com/" class="social-media"><img src="images/insta.png" /></a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com/" class="social-media"><img src="images/facebook.png" /></a>
+                    </li>
+                    <li>
+                        <a href="https://x.com/" class="social-media"><img src="images/twitter.png" /></a>
+                    </li>
                 </ul>
             </div>
         </div>

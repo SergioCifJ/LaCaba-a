@@ -36,7 +36,6 @@ try
     var context = services.GetRequiredService<DataContext>();
     await context.Database.MigrateAsync();
     await SeedUsers.SeedUsersDB(context);
-    await SeedMenu.SeedMenuDB(context);
 }
 catch (Exception ex)
 {

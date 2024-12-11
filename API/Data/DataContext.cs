@@ -9,6 +9,5 @@ namespace API.Data
 
         public DbSet<AppUser> Usuarios { get; set; }
         public DbSet<Reserva> Reservas { get; set; }
-        public DbSet<Menu> Menus { get; set; }
     }
 }
