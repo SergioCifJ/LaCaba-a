@@ -1,20 +1,24 @@
 <header class="header">
     <div class="menu container">
-        <a routerLink="/" routerLinkActive="active" class="logo"><img src="images/logoPNGHD.png"></a>
-        <input type="checkbox" id="menu" />
-        <label for="menu">
-            <img src="images/menu.png" class="menu-icono" alt="menu">
-        </label>
-        <nav class="navbar">
-            <ul>
-                <div *ngIf="0 == 0">
-                    <li><a routerLink="/register" routerLinkActive="active">Regístrate</a></li>
-                    <li><a routerLink="/sesion" routerLinkActive="active">Iniciar Sesión</a></li>
-                </div>
-                <div *ngIf="">
-                    <li><a routerLinkActive="invalid">Nombre</a></li>
-                </div>
-            </ul>
-        </nav>
+      <a routerLink="/" routerLinkActive="active" class="logo">
+        <img src="images/logoPNGHD.png" />
+      </a>
+      <input type="checkbox" id="menu" />
+      <label for="menu">
+        <img src="images/menu.png" class="menu-icono" alt="menu" />
+      </label>
+      <nav class="navbar">
+        <ul>
+          <ng-container *ngIf="(accountService.currentUser$ | async) as user; else notLoggedIn">
+            <li><a routerLink="/profile" routerLinkActive="active">{{ user.nombre }}</a></li>
+            <li><a (click)="logout()">Cerrar Sesión</a></li>
+          </ng-container>
+          <ng-template #notLoggedIn>
+            <li><a routerLink="/register" routerLinkActive="active">Regístrate</a></li>
+            <li><a routerLink="/sesion" routerLinkActive="active">Iniciar Sesión</a></li>
+          </ng-template>
+        </ul>
+      </nav>
     </div>
-</header>
+  </header>
+  

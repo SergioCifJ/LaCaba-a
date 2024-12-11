@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AccountService } from '../_services/account.service';  // Asegúrate de que la ruta sea correcta
+import { AccountService } from '../_services/account.service';
 
 @Component({
   selector: 'app-sesion',
   templateUrl: './sesion.component.html',
-  styleUrls: ['./sesion.component.scss']
+  styleUrls: ['./sesion.component.scss'],
 })
 export class SesionComponent implements OnInit {
   loginForm!: FormGroup;
@@ -19,10 +19,9 @@ export class SesionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Crear el formulario reactivo con los campos de correo y contraseña
     this.loginForm = this.fb.group({
       correo: ['', [Validators.required, Validators.email]],
-      contrasena: ['', Validators.required]
+      contrasena: ['', Validators.required],
     });
   }
 
@@ -43,7 +42,6 @@ export class SesionComponent implements OnInit {
     );
   }
 
-  // Getter para acceder a los controles del formulario
   get f() {
     return this.loginForm.controls;
   }
