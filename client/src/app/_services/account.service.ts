@@ -9,29 +9,19 @@ import { Usuario } from '../_models/Usuario';
 })
 export class AccountService {
   baseUrl = environment.apiUrl;
+  private loginUrl = this.baseUrl + 'account/login';
   private currentUserSource = new BehaviorSubject<Usuario | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient) {}
 
   login(model: any) {
-    return this.http.post<Usuario>(this.baseUrl + 'account/login', model).pipe(
+    return this.http.post<Usuario>(this.loginUrl, model).pipe(
       map((response: Usuario) => {
         const user = response;
         if (user) {
           this.setCurrentUser(user);
         }
-      })
-    );
-  }
-
-  register(model: any) {
-    return this.http.post<Usuario>(this.baseUrl + 'account/register', model).pipe(
-      map((user) => {
-        if (user) {
-          this.setCurrentUser(user);
-        }
-        return user;
       })
     );
   }

@@ -18,21 +18,29 @@ namespace API.Data
             return await _context.Usuarios.ToListAsync();
         }
 
-        public async Task<AppUser> GetUserByIdAsync(int id)
+        public async Task<AppUser?> GetUserByIdAsync(int id)
         {
             return await _context.Usuarios.FindAsync(id);
         }
 
-        public async Task<AppUser> GetUserByNombreAsync(string nombre)
+        public async Task<AppUser?> GetUserByNombreAsync(string nombre)
         {
             return await _context.Usuarios
                 .FirstOrDefaultAsync(u => u.Nombre == nombre);
         }
 
-        public async Task<AppUser> GetUserByCorreoAsync(string correo)
+        public async Task<AppUser?> GetUserByCorreoAsync(string correo)
         {
-            return await _context.Usuarios
-                .FirstOrDefaultAsync(u => u.Correo == correo);
+            try
+            {
+                return await _context.Usuarios
+                    .FirstOrDefaultAsync(u => u.Correo.ToLower() == correo.ToLower());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching user by correo: {ex.Message}");
+                throw;
+            }
         }
 
         public async Task<AppUser> AddUserAsync(AppUser user)
@@ -43,13 +51,22 @@ namespace API.Data
         }
 
         public async Task<bool> UserExist(string correo)
-    {
-        return await _context.Usuarios.AnyAsync(u => u.Correo == correo);
-    }
+        {
+            try
+            {
+                return await _context.Usuarios.AnyAsync(u => u.Correo.ToLower() == correo.ToLower());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error checking user existence: {ex.Message}");
+                throw;
+            }
+        }
 
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
         }
     }
+
 }
