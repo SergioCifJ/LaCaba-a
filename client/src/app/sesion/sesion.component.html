@@ -10,16 +10,16 @@
         <div class="nosotros-content">
             <h1>Inicia sesión</h1>
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                <p class="nombre-input">Nombre de Usuario: </p>
+                <p class="nombre-input">Correo electrónico: </p>
                 <input
                     type="text"
                     class="input-input"
-                    formControlName="nombreUsuario"
+                    formControlName="correo"
                     required
                     autocomplete="off"
                 />
-                <div *ngIf="f['nombreUsuario'].touched && f['nombreUsuario'].invalid" class="error-message">
-                    <p style="color: red;" *ngIf="f['nombreUsuario'].errors?.['required']">El nombre de usuario es obligatorio.</p>
+                <div *ngIf="f['correo'].touched && f['correo'].invalid" class="error-message">
+                    <p style="color: red;" *ngIf="f['correo'].errors?.['required']">El correo electrónico es obligatorio.</p>
                 </div>
 
                 <p class="nombre-input">Contraseña: </p>

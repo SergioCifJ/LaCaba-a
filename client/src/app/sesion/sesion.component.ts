@@ -17,11 +17,11 @@ export class SesionComponent implements OnInit {
     private fb: FormBuilder,
     private accountService: AccountService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      nombreUsuario: ['', Validators.required],
+      correo: ['', [Validators.required, Validators.email]],
       contrasena: ['', Validators.required]
     });
   }
@@ -31,17 +31,21 @@ export class SesionComponent implements OnInit {
       this.errorMessage = 'Por favor, ingresa los campos correctamente.';
       return;
     }
-
+  
+    console.log('Formulario enviado con los datos:', this.loginForm.value);
+  
     this.accountService.login(this.loginForm.value).subscribe(
-      () => {
+      (response) => {
         this.errorMessage = '';
         this.router.navigate(['/home']);
       },
-      () => {
+      (error) => {
+        console.error('Error en el login:', error);
         this.errorMessage = 'Credenciales incorrectas. Intenta nuevamente.';
       }
     );
   }
+  
 
   get f() {
     return this.loginForm.controls;

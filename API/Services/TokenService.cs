@@ -32,7 +32,6 @@ public class TokenService : ITokenService
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();
-
         var token = tokenHandler.CreateToken(tokenDescriptor);
 
         return await Task.FromResult(tokenHandler.WriteToken(token));
