@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegisterService } from '../_services/register.service';
+import { AccountService } from '../_services/account.service';
 
 @Component({
   selector: 'app-register',
@@ -16,6 +17,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private registerService: RegisterService,
+    private accountService: AccountService,
     private router: Router
   ) {}
 
@@ -47,8 +49,21 @@ export class RegisterComponent implements OnInit {
     this.registerService.registerUser(this.registerForm.value).subscribe(
       (response) => {
         this.errorMessage = '';
-        alert('Usuario registrado con éxito');
-        this.registerForm.reset();
+        // Autenticarse automáticamente después del registro exitoso
+        const loginModel = {
+          correo: this.registerForm.value.correo,
+          contrasena: this.registerForm.value.contrasena
+        };
+
+        this.accountService.login(loginModel).subscribe(
+          () => {
+            this.router.navigate(['/home']);
+          },
+          (error) => {
+            console.error('Error al iniciar sesión automáticamente:', error);
+            this.errorMessage = 'El registro fue exitoso, pero no se pudo iniciar sesión automáticamente.';
+          }
+        );
       },
       (error) => {
         if (error === 'El nombre de usuario ya está en uso.' || error === 'El correo electrónico ya está en uso.') {
