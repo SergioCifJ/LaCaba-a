@@ -46,5 +46,10 @@ namespace API.Data
     {
         return await _context.Usuarios.AnyAsync(u => u.Correo == correo);
     }
+
+        public async Task<bool> SaveAllAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }
