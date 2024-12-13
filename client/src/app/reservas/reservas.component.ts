@@ -22,7 +22,14 @@ export class ReservasComponent {
   onSubmit() {
     if (this.reservaForm.valid) {
       const reservaData = this.reservaForm.value;
-      if (reservaData) {
+
+      // Obtén los datos del usuario desde el localStorage
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+      if (reservaData && user) {
+        // Añadir el usuario a los datos de la reserva
+        reservaData.usuario = user;
+
         this.reservaService.createReserva(reservaData)!.subscribe(
           () => {
             alert('Reserva creada con éxito');

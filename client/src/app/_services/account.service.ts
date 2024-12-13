@@ -13,7 +13,9 @@ export class AccountService {
   private currentUserSource = new BehaviorSubject<Usuario | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.getCurrentUser();  // Asegúrate de cargar el usuario cuando la aplicación se inicia
+  }
 
   login(model: any) {
     return this.http.post<Usuario>(this.loginUrl, model).pipe(
