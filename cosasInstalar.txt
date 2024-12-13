@@ -1,0 +1,19 @@
+git
+Node.js
+dotnet vs8.0
+
+
+git clone https://github.com/SergioCifJ/LaCaba-a.git
+npm install
+npm install @angular/cli
+
+
+PowerShell
+    Get-ExecutionPolicy
+    Set-ExecutionPolicy RemoteSigned
+
+
+desde la carpeta API: dotnet watch
+desde la carpeta client: ng serve
+
+http://localhost:4200/

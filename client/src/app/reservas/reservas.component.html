@@ -9,22 +9,42 @@
     <section class="nosotros container">
         <div class="nosotros-content">
             <h1>Haz tu reserva aquí:</h1>
-            <form>
+            <form [formGroup]="reservaForm">
                 <p class="nombre-input">Fecha: </p>
-                <input type="date" class="input-input">
+                <input type="date" formControlName="fecha" class="input-input">
+                <div *ngIf="reservaForm.get('fecha')?.touched && reservaForm.get('fecha')?.invalid">
+                    <small class="error" style="color: red; font-size: 18px;">La fecha es obligatoria.</small>
+                </div>
+
                 <p class="nombre-input">Hora: </p>
-                <select class="input-input">
-                    <option value="9:00">9:00</option>
-                    <option value="9:00">10:00</option>
-                    <option value="9:00">11:00</option>
-                    <option value="9:00">12:00</option>
-                    <option value="9:00">13:00</option>
-                    <option value="9:00">14:00</option>
-                    <option value="9:00">15:00</option>
+                <select formControlName="hora" class="input-input">
+                    <option value="12:00">12:00</option>
+                    <option value="13:00">13:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="15:00">15:00</option>
+                    <option value="16:00">16:00</option>
+                    <option value="17:00">17:00</option>
+                    <option value="18:00">18:00</option>
+                    <option value="19:00">19:00</option>
+                    <option value="20:00">20:00</option>
+                    <option value="21:00">21:00</option>
                 </select>
-                <p class="nombre-input">Numero de comensales: </p>
-                <input type="number" class="input-input"><br>
-                <button type="submit">Enviar</button>
+                <div *ngIf="reservaForm.get('hora')?.touched && reservaForm.get('hora')?.invalid">
+                    <small class="error" style="color: red; font-size: 18px;">La hora es obligatoria.</small>
+                </div>
+
+                <p class="nombre-input">Número de comensales: </p>
+                <input type="number" formControlName="numComensales" class="input-input" min="1">
+                <div *ngIf="reservaForm.get('numComensales')?.touched && reservaForm.get('numComensales')?.invalid">
+                    <small *ngIf="reservaForm.get('numComensales')?.hasError('required')" style="color: red; font-size: 18px;">
+                        El número de comensales es obligatorio.
+                    </small>
+                    <small *ngIf="reservaForm.get('numComensales')?.hasError('min')" style="color: red; font-size: 18px;">
+                        Debe haber al menos 1 comensal.
+                    </small>
+                </div><br>
+
+                <button type="button" (click)="onSubmit()">Enviar</button>
             </form>
         </div>
     </section>
