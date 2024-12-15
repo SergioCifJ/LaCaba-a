@@ -39,6 +39,7 @@ namespace API.Controllers
 
                 return new UserDto
                 {
+                    Id = user.Id,
                     Correo = user.Correo,
                     Token = token,
                     Nombre = user.Nombre,

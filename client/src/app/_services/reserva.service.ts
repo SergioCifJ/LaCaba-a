@@ -9,7 +9,7 @@ import { environment } from '../environments/environment';
 export class ReservaService {
   baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   createReserva(reserva: Reserva) {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -21,9 +21,10 @@ export class ReservaService {
     }
 
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${token}`,
     });
 
     return this.http.post(`${this.baseUrl}reservas/reservar`, reserva, { headers });
   }
+
 }

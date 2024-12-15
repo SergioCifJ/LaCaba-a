@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using API.Entities;
 using API.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -22,13 +23,14 @@ namespace API.Controllers
         [HttpPost("reservar")]
         public async Task<ActionResult<Reserva>> CreateReserva([FromBody] Reserva reservaDto)
         {
-            var userName = User.Identity?.Name;
-            if (string.IsNullOrEmpty(userName))
+            // Obtener el UserId desde el token JWT
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out var userId))
             {
                 return Unauthorized("No se encontró el usuario autenticado.");
             }
 
-            var user = await _userRepository.GetUserByNombreAsync(userName);
+            var user = await _userRepository.GetUserByIdAsync(userId);
             if (user == null)
             {
                 return NotFound("Usuario no encontrado.");
@@ -45,12 +47,13 @@ namespace API.Controllers
             try
             {
                 await _reservaRepository.AddReservaAsync(reserva);
-                return Ok(reserva); 
+                return Ok(reserva);
             }
             catch (Exception ex)
             {
                 return StatusCode(500, $"Error al crear la reserva: {ex.Message}");
             }
         }
+
     }
 }

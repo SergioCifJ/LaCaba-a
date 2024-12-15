@@ -13,13 +13,14 @@ public class TokenService : ITokenService
     {
         _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
     }
-    
+
     public async Task<string> CreateToken(AppUser user)
     {
         var claims = new List<Claim>
         {
-            new Claim(JwtRegisteredClaimNames.NameId, user.Correo),
-            new Claim("UserId", user.Id.ToString())
+            new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()), // NameId ahora contiene el UserId
+            new Claim(JwtRegisteredClaimNames.Email, user.Correo),
+            new Claim("UserId", user.Id.ToString()) // Extra claim opcional si es necesario
         };
 
         var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
