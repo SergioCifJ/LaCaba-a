@@ -25,7 +25,7 @@ namespace API.Data
 
         public async Task<IEnumerable<Reserva>> GetAllReservasAsync()
         {
-            return await _context.Reservas.Include(r => r.Usuario).ToListAsync();
+            return await _context.Reservas.ToListAsync();
         }
 
         public async Task<IEnumerable<Reserva>> GetReservasByFechaAsync(DateTime fecha)
