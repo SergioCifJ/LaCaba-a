@@ -18,7 +18,6 @@ export class ReservasComponent {
       fecha: ['', Validators.required],
       hora: ['', Validators.required],
       numComensales: ['', [Validators.required, Validators.min(1)]],
-      
     });
   }
 
@@ -26,27 +25,30 @@ export class ReservasComponent {
     if (this.reservaForm.valid) {
       const reservaData = this.reservaForm.value;
 
-      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const user = JSON.parse(localStorage.getItem('user') || 'null');
 
-      if (reservaData && user) {
-        reservaData.usuario = user;
-
-        this.reservaService.createReserva(reservaData)!.subscribe(
-          () => {
-            this.errorReserva = null;
-            this.reservaForm.reset();
-            this.router.navigate(['/home']);
-          },
-          (error) => {
-            console.error('Error al crear la reserva:', error);
-            if (error.status === 400) {
-              this.errorReserva = 'Ya existe una reserva para la fecha y hora seleccionadas.';
-            } else {
-              this.errorReserva = 'Error al crear la reserva. Por favor, inténtelo nuevamente.';
-            }
-          }
-        );
+      if (!user) {
+        this.errorReserva = 'Por favor, inicie sesión para realizar una reserva.';
+        return;
       }
+
+      reservaData.usuario = user;
+
+      this.reservaService.createReserva(reservaData)!.subscribe(
+        () => {
+          this.errorReserva = null;
+          this.reservaForm.reset();
+          this.router.navigate(['/home']);
+        },
+        (error) => {
+          console.error('Error al crear la reserva:', error);
+          if (error.status === 400) {
+            this.errorReserva = 'Ya existe una reserva para la fecha y hora seleccionadas.';
+          } else {
+            this.errorReserva = 'Error al crear la reserva. Por favor, inténtelo nuevamente.';
+          }
+        }
+      );
     } else {
       console.log('Formulario inválido:', this.reservaForm.errors);
     }
