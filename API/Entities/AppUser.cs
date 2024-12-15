@@ -8,5 +8,6 @@ namespace API.Entities
         public string Contrasena { get; set; }
         public byte[] ContrasenaHash { get; set; }
         public byte[] ContrasenaSalt { get; set; }
+        public bool IsAdmin{ get; set; } = false;
     }
 }

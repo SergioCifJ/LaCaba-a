@@ -43,6 +43,7 @@ namespace API.Controllers
                     Correo = user.Correo,
                     Token = token,
                     Nombre = user.Nombre,
+                    IsAdmin = user.IsAdmin,
                 };
 
             }
@@ -51,9 +52,6 @@ namespace API.Controllers
                 return StatusCode(500, "Internal server error: " + ex.Message);
             }
         }
-
-
-
 
         private async Task<bool> UserExist(string correo)
         {

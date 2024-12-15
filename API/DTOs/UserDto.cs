@@ -6,5 +6,6 @@ namespace API.DTOs
         public string Nombre { get; set; }
         public string Token { get; set; }
         public int Id { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

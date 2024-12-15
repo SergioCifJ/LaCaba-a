@@ -1,0 +1,54 @@
+<body>
+    <header class="header">
+        <div class="menu container">
+            <label for="menu">
+                <img src="../images/menu.png" class="menu-icono" alt="menu">
+            </label>
+        </div>
+    </header>
+
+    <section class="nosotros container">
+        <div class="nosotros-content">
+          <form (ngSubmit)="filtrarReservas()">
+            <label for="fecha">Filtrar por fecha:</label>
+            <input type="date" id="fecha" [(ngModel)]="fechaFiltro" name="fecha" required />
+            <button type="submit">Filtrar</button>
+          </form>
+      
+          <table>
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Número de Comensales</th>
+                <th>Usuario</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let reserva of reservas">
+                <td>{{ reserva.fecha | date }}</td>
+                <td>{{ reserva.hora }}</td>
+                <td>{{ reserva.numComensales }}</td>
+                <td>{{ reserva.usuario.nombre }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      
+
+    <footer class="footer">
+        <div class="footer-content container">
+            <div class="link">
+                <span class="logo"><img src="images/logoPNGHD.png"></span>
+            </div>
+            <div class="link">
+                <ul>
+                    <li><a href="https://instagram.com/" class="social-media"><img src="images/insta.png"></a></li>
+                    <li><a href="https://facebook.com/" class="social-media"><img src="images/facebook.png"></a></li>
+                    <li><a href="https://x.com/" class="social-media"><img src="images/twitter.png"></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>

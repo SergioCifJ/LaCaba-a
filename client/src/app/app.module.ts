@@ -11,6 +11,7 @@ import { RegisterComponent } from './register/register.component';
 import { SesionComponent } from './sesion/sesion.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ListaReservasComponent } from './lista-reservas/lista-reservas.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NavComponent,
     RegisterComponent,
     SesionComponent,
+    ListaReservasComponent,
   ],
   imports: [
     BrowserModule,

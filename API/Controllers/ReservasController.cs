@@ -23,7 +23,6 @@ namespace API.Controllers
         [HttpPost("reservar")]
         public async Task<ActionResult<Reserva>> CreateReserva([FromBody] Reserva reservaDto)
         {
-            // Obtener el UserId desde el token JWT
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out var userId))
             {
@@ -55,5 +54,32 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Reserva>>> GetReservas()
+        {
+            try
+            {
+                var reservas = await _reservaRepository.GetAllReservasAsync();
+                return Ok(reservas);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al obtener las reservas: {ex.Message}");
+            }
+        }
+
+        [HttpGet("byFecha")]
+        public async Task<ActionResult<IEnumerable<Reserva>>> FindReservasByFecha([FromQuery] DateTime fecha)
+        {
+            try
+            {
+                var reservas = await _reservaRepository.GetReservasByFechaAsync(fecha);
+                return Ok(reservas);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al filtrar las reservas: {ex.Message}");
+            }
+        }
     }
 }

@@ -25,7 +25,7 @@ builder.Services.AddDbContext<DataContext>(opt =>
 });
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IReservasRepository, ReservaRepository>();
+builder.Services.AddScoped<IReservasRepository, ReservasRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

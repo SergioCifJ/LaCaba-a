@@ -37,7 +37,16 @@ namespace API.Data
                 context.Usuarios.Add(user);
             }
 
+            // Guardar los usuarios en la base de datos
             await context.SaveChangesAsync();
+
+            // Asegurarse de que el usuario con Id = 1 sea administrador
+            var adminUser = await context.Usuarios.FirstOrDefaultAsync(u => u.Id == 1);
+            if (adminUser != null)
+            {
+                adminUser.IsAdmin = true;
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

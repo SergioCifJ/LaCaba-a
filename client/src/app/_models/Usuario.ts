@@ -3,4 +3,5 @@ export interface Usuario {
     nombre: string | null,
     correo: string | null,
     contrasena: string,
+    isAdmin: boolean,
 }

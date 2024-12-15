@@ -5,6 +5,7 @@ import { NosotrosComponent } from './nosotros/nosotros.component';
 import { ReservasComponent } from './reservas/reservas.component';
 import { RegisterComponent } from './register/register.component';
 import { SesionComponent } from './sesion/sesion.component';
+import { ListaReservasComponent } from './lista-reservas/lista-reservas.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'reservas', component: ReservasComponent },
   { path: 'register', component: RegisterComponent},
   { path: 'sesion', component: SesionComponent},
+  { path: 'lista-reservas', component: ListaReservasComponent},
   { path: '**', component: HomeComponent },
 ]
 
