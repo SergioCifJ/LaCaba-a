@@ -35,10 +35,20 @@ namespace API.Controllers
                 return NotFound("Usuario no encontrado.");
             }
 
+            var fecha = reservaDto.Fecha;
+            var hora = reservaDto.Hora;
+
+            // Verificar si ya existe una reserva para la fecha y hora
+            var existeReserva = await _reservaRepository.ExisteReservaAsync(fecha, hora);
+            if (existeReserva)
+            {
+                return BadRequest("Ya existe una reserva para la fecha y hora especificadas.");
+            }
+
             var reserva = new Reserva
             {
-                Fecha = reservaDto.Fecha,
-                Hora = reservaDto.Hora,
+                Fecha = fecha,
+                Hora = hora,
                 NumComensales = reservaDto.NumComensales,
                 Usuario = user
             };

@@ -19,10 +19,18 @@ export class ListaReservasComponent {
 
   obtenerReservas() {
     this.http.get<any[]>(this.baseUrl + 'reservas').subscribe(
-      (data) => this.reservas = data,
+      (data) => {
+        this.reservas = data;
+        this.reservas.sort((a, b) => {
+          const fechaA = new Date(a.fecha + ' ' + a.hora);
+          const fechaB = new Date(b.fecha + ' ' + b.hora);
+          return fechaA.getTime() - fechaB.getTime();
+        });
+      },
       (error) => console.error('Error al obtener reservas:', error)
     );
   }
+  
 
   filtrarReservas() {
     if (!this.fechaFiltro) return;

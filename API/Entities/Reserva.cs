@@ -1,4 +1,3 @@
-
 namespace API.Entities
 {
     public class Reserva
@@ -7,6 +6,6 @@ namespace API.Entities
         public DateOnly Fecha { get; set; }
         public string Hora { get; set; }
         public int NumComensales { get; set; }
-        public required AppUser Usuario {get; set;}
+        public required AppUser Usuario { get; set; }
     }
 }

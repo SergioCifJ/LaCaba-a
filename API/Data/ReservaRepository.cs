@@ -25,7 +25,9 @@ namespace API.Data
 
         public async Task<IEnumerable<Reserva>> GetAllReservasAsync()
         {
-            return await _context.Reservas.ToListAsync();
+            return await _context.Reservas
+                .Include(r => r.Usuario)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Reserva>> GetReservasByFechaAsync(DateTime fecha)
@@ -35,6 +37,11 @@ namespace API.Data
                 .Where(r => r.Fecha == DateOnly.FromDateTime(fecha))
                 .ToListAsync();
         }
+
+        public async Task<bool> ExisteReservaAsync(DateOnly fecha, string hora)
+        {
+            return await _context.Reservas
+                .AnyAsync(r => r.Fecha == fecha && r.Hora == hora);
+        }
     }
 }
-

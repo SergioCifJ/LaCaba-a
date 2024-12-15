@@ -6,6 +6,7 @@
             </label>
         </div>
     </header>
+
     <section class="nosotros container">
         <div class="nosotros-content">
             <h1>Haz tu reserva aquí:</h1>
@@ -46,6 +47,8 @@
 
                 <button type="button" (click)="onSubmit()">Enviar</button>
             </form>
+
+            <p style="color: red;" *ngIf="errorReserva">{{ errorReserva }}</p>
         </div>
     </section>
 
