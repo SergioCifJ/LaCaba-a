@@ -11,7 +11,12 @@
                 <p class="nombre-input">Fecha: </p>
                 <input type="date" formControlName="fecha" class="input-input">
                 <div *ngIf="reservaForm.get('fecha')?.touched && reservaForm.get('fecha')?.invalid">
-                    <small class="error" style="color: red; font-size: 18px;">La fecha es obligatoria.</small>
+                    <small *ngIf="reservaForm.get('fecha')?.hasError('required')" class="error" style="color: red; font-size: 18px;">
+                        La fecha es obligatoria.
+                    </small>
+                    <small *ngIf="reservaForm.get('fecha')?.hasError('pastDate')" class="error" style="color: red; font-size: 18px;">
+                        La fecha no puede ser anterior a hoy.
+                    </small>
                 </div>
 
                 <p class="nombre-input">Hora: </p>

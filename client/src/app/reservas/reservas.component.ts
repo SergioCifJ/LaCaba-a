@@ -1,7 +1,20 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { ReservaService } from '../_services/reserva.service';
 import { Router } from '@angular/router';
+
+// Función personalizada para validar que la fecha no sea anterior al día actual
+function futureDateValidator(): ValidatorFn {
+  return (control: AbstractControl) => {
+    if (!control.value) {
+      return null; // Si no hay valor, se maneja con el validador 'required'
+    }
+    const selectedDate = new Date(control.value).setHours(0, 0, 0, 0);
+    const today = new Date().setHours(0, 0, 0, 0);
+
+    return selectedDate < today ? { pastDate: true } : null;
+  };
+}
 
 @Component({
   selector: 'app-reservas',
@@ -15,7 +28,7 @@ export class ReservasComponent {
 
   constructor(private fb: FormBuilder, private reservaService: ReservaService, private router: Router) {
     this.reservaForm = this.fb.group({
-      fecha: ['', Validators.required],
+      fecha: ['', [Validators.required, futureDateValidator()]],
       hora: ['', Validators.required],
       numComensales: ['', [Validators.required, Validators.min(1)]],
     });
